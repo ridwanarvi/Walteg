@@ -41,6 +41,7 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void addPurchase(Purchase p) {
+<<<<<<< HEAD
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -58,7 +59,11 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
     public void deletePurchase(Purchase p) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("purchase", "idpurchase = "+p.id , null);
+=======
+        
+>>>>>>> c4afcd86ab64ace5203208936e340938b148ad8f
     }
+
     public void addInventory(Inventory i) {
 
     }
@@ -80,34 +85,74 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
 }
 
 class Purchase {
-    int id;
+    int idpurchase;
     String date;
     int itemid;
-    int totalItem;
     int totalNumber;
-    public Purchase(int id, String date, int itemid, int totalItem, int totalNumber){
-        this.id=id;
+    int totalPrice;
+    public Purchase(int idpurchase, String date, int itemid, int totalNumber, int totalPrice){
+        this.idpurchase=idpurchase;
         this.date=date;
+        this.itemid=itemid;
+        this.totalNumber=totalNumber;
+        this.totalPrice=totalPrice;
     }
 }
 
 class Inventory{
-
+    int idinventory;
+    String nameinventory;
+    String dateexpired;
+    int total;
+    public Inventory(int idinventory, String nameinventory, String dateexpired, int total){
+        this.idinventory=idinventory;
+        this.nameinventory=nameinventory;
+        this.dateexpired=dateexpired;
+        this.total=total;
+    }
 }
 
 class Menu{
-
+    int idmenu;
+    String namemenu;
+    int price;
+    public Menu(int idmenu, String namemenu, int price) {
+        this.idmenu=idmenu;
+        this.namemenu=namemenu;
+        this.price=price;
+    }
 }
 
 class Cooking{
-
+    int idcooking;
+    String date;
+    public Cooking(int idcooking, String date){
+        this.idcooking=idcooking;
+        this.date=date;
+    }
 }
 
 class Usage{
-
+    int idcooking;
+    int idinventory;
+    int totalusage;
+    public Usage(int idcooking, int idinventory, int totalusage){
+        this.idcooking=idcooking;
+        this.idinventory=idinventory;
+        this.totalusage=totalusage;
+    }
 }
 
 class Sold{
-
+    int idcooking;
+    int idmenu;
+    int totalsell;
+    int excessmenu;
+    public Sold(int idcooking, int idmenu, int totalsell, int excessmenu){
+        this.idcooking=idcooking;
+        this.idmenu=idmenu;
+        this.totalsell=totalsell;
+        this.excessmenu=excessmenu;
+    }
 }
 
