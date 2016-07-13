@@ -19,10 +19,9 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE purchase (idpurchase INTEGER PRIMARY KEY AUTO INCREMENT, date STRING, itemid INTEGER, totalnumber INTEGER, totalprice INTEGER);");
-        db.execSQL("CREATE TABLE inventory (idinventory INTEGER PRIMARY KEY AUTO INCREMENT,nameinventory STRING , dateexpired STRING, total INTEGER);");
-        db.execSQL("CREATE TABLE menu (idmenu INTEGER PRIMARY KEY AUTO INCREMENT,namemenu STRING , price INTEGER);");
-        db.execSQL("CREATE TABLE cooking (idcooking INTEGER PRIMARY KEY AUTO INCREMENT,date STRING);");
+        db.execSQL("CREATE TABLE inventory (idpurchase INTEGER PRIMARY KEY AUTO INCREMENT, datepurchase TEXT, nameinventory TEXT, dateexpire TEXT, totalnumber INTEGER, totalprice INTEGER);");
+        db.execSQL("CREATE TABLE menu (idmenu INTEGER PRIMARY KEY AUTO INCREMENT,namemenu TEXT , price INTEGER);");
+        db.execSQL("CREATE TABLE cooking (idcooking INTEGER PRIMARY KEY AUTO INCREMENT,date TEXT);");
         db.execSQL("CREATE TABLE usage (idusage INTEGER PRIMARY KEY AUTO INCREMENT, idcooking INTEGER,idinventory INTEGER,totalusage INTEGER);");
         db.execSQL("CREATE TABLE sold (idsold INTEGER PRIMARY KEY AUTO INCREMENT, idcooking INTEGER,idmenu INTEGER,totalsell INTEGER, excessmenu INTEGER);");
 
@@ -30,8 +29,6 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
-        // TODO Auto-generated method stub
-        db.execSQL("DROP TABLE IF EXISTS purchase");
         db.execSQL("DROP TABLE IF EXISTS inventory");
         db.execSQL("DROP TABLE IF EXISTS menu");
         db.execSQL("DROP TABLE IF EXISTS cooking");
@@ -40,19 +37,13 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addPurchase(Purchase p) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cPurchase = p.getContentValues();
-        db.insert("purchase", null, cPurchase);
-    }
-
-    public void updatePurchase(Purchase p){
+    public void updateInventory(Inventory p){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cPurchase = p.getContentValues();
         db.update("purchase", cPurchase, "idpurchase="+p.idpurchase, null);
     }
 
-    public void deletePurchase(Purchase p) {
+    public void deleteInventory(Inventory p) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("purchase", "idpurchase = "+p.idpurchase , null);
     }
@@ -88,48 +79,33 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
     }
 }
 
-class Purchase {
+class Inventory {
     int idpurchase;
-    String date;
-    int itemid;
+    String datepurchase;
+    String nameinventory;
+    String dateExpire;
     int totalNumber;
     int totalPrice;
-    public Purchase(int idpurchase, String date, int itemid, int totalNumber, int totalPrice){
+    public Inventory(int idpurchase, String datepurchase, String nameinventory,String dateExpire, int totalNumber, int totalPrice){
         this.idpurchase=idpurchase;
-        this.date=date;
-        this.itemid=itemid;
+        this.datepurchase=datepurchase;
+        this.nameinventory=nameinventory;
         this.totalNumber=totalNumber;
+        this.dateExpire=dateExpire;
         this.totalPrice=totalPrice;
     }
     public ContentValues getContentValues(){
         ContentValues cPurchase = new ContentValues();
-        cPurchase.put("date", date);
-        cPurchase.put("itemid", itemid);
+        cPurchase.put("datepurchase", datepurchase);
+        cPurchase.put("nameinventory", nameinventory);
+        cPurchase.put("nameinventory", nameinventory);
+        cPurchase.put("dateExpire", dateExpire);
         cPurchase.put("totalNumber", totalNumber);
         cPurchase.put("totalPrice", totalPrice);
         return cPurchase;
     }
 }
 
-class Inventory{
-    int idinventory;
-    String nameinventory;
-    String dateexpired;
-    int total;
-    public Inventory(int idinventory, String nameinventory, String dateexpired, int total){
-        this.idinventory=idinventory;
-        this.nameinventory=nameinventory;
-        this.dateexpired=dateexpired;
-        this.total=total;
-    }
-    public ContentValues getContentValues(){
-        ContentValues cInventory = new ContentValues();
-        cInventory.put("nameinventory", nameinventory);
-        cInventory.put("dateexpired", dateexpired);
-        cInventory.put("total", total);
-        return cInventory;
-    }
-}
 
 class Menu{
     int idmenu;

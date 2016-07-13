@@ -1,5 +1,7 @@
 package ajou.walteg;
 
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,35 +22,38 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
     }
 
     public void purchase(View v)
     {
-        Toast.makeText(getApplicationContext(),"Purchase is not yet implemented",Toast.LENGTH_SHORT);
+        Toast.makeText(getApplicationContext(),"Item Purchase is not yet implemented",Toast.LENGTH_SHORT).show();
+        Intent p = new Intent(this, PurchaseActivity.class);
+        startActivity(p);
     }
     public void inventory(View v)
     {
-        Toast.makeText(getApplicationContext(),"Inventory is not yet implemented",Toast.LENGTH_SHORT);
+        Toast.makeText(getApplicationContext(),"Your Inventory is not yet implemented",Toast.LENGTH_SHORT).show();;
 
     }
     public void menu(View v)
     {
-        Toast.makeText(getApplicationContext(),"Menu is not yet implemented",Toast.LENGTH_SHORT);
+        Toast.makeText(getApplicationContext(),"Food Menu is not yet implemented",Toast.LENGTH_SHORT).show();;
 
     }
     public void cook(View v)
     {
-        Toast.makeText(getApplicationContext(),"Cook is not yet implemented",Toast.LENGTH_SHORT);
+        Toast.makeText(getApplicationContext(),"Inventory Usage is not yet implemented",Toast.LENGTH_SHORT).show();;
 
     }
     public void sell(View v)
     {
-        Toast.makeText(getApplicationContext(),"Food Sales is not yet implemented",Toast.LENGTH_SHORT);
+        Toast.makeText(getApplicationContext(),"Food Sales is not yet implemented",Toast.LENGTH_SHORT).show();;
 
     }
     public void review(View v)
     {
-        Toast.makeText(getApplicationContext(),"History and Review is not yet implemented",Toast.LENGTH_SHORT);
+        Toast.makeText(getApplicationContext(),"History and Review is not yet implemented",Toast.LENGTH_SHORT).show();;
 
     }
 
