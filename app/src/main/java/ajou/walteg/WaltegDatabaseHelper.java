@@ -2,12 +2,13 @@ package ajou.walteg;
 
 import static android.provider.BaseColumns._ID;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class WaltegDatabaseHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "events.db";
+    private static final String DATABASE_NAME = "walteg.db";
     private static final int DATABASE_VERSION = 1;
 
     /** Create a helper object for the Events database */
@@ -40,7 +41,23 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void addPurchase(Purchase p) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
 
+
+        db.insert("purchase", null, cv);
+    }
+
+    public void updatePurchase(Purchase p){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        db.update("purchase", cv, "idpurchase="+p.id, null);
+    }
+
+    public void deletePurchase(Purchase p) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("purchase", "idpurchase = "+p.id , null);
     }
     public void addInventory(Inventory i) {
 
