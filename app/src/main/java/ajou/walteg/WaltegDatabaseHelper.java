@@ -41,7 +41,6 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void addPurchase(Purchase p) {
-<<<<<<< HEAD
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -53,15 +52,12 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        db.update("purchase", cv, "idpurchase="+p.id, null);
+        db.update("purchase", cv, "idpurchase="+p.idpurchase, null);
     }
 
     public void deletePurchase(Purchase p) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete("purchase", "idpurchase = "+p.id , null);
-=======
-        
->>>>>>> c4afcd86ab64ace5203208936e340938b148ad8f
+        db.delete("purchase", "idpurchase = "+p.idpurchase , null);
     }
 
     public void addInventory(Inventory i) {
