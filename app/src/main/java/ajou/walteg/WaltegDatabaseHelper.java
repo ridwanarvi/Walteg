@@ -11,6 +11,7 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "walteg.db";
     private static final int DATABASE_VERSION = 1;
 
+
     /** Create a helper object for the Events database */
     public WaltegDatabaseHelper(Context ctx) {
         super(ctx, DATABASE_NAME, null, DATABASE_VERSION);
@@ -42,17 +43,14 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
 
     public void addPurchase(Purchase p) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-
-
-        db.insert("purchase", null, cv);
+        ContentValues cPurchase = p.getContentValues();
+        db.insert("purchase", null, cPurchase);
     }
 
     public void updatePurchase(Purchase p){
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-
-        db.update("purchase", cv, "idpurchase="+p.idpurchase, null);
+        ContentValues cPurchase = p.getContentValues();
+        db.update("purchase", cPurchase, "idpurchase="+p.idpurchase, null);
     }
 
     public void deletePurchase(Purchase p) {
@@ -92,6 +90,14 @@ class Purchase {
         this.itemid=itemid;
         this.totalNumber=totalNumber;
         this.totalPrice=totalPrice;
+    }
+    public ContentValues getContentValues(){
+        ContentValues cPurchase = new ContentValues();
+        cPurchase.put("date", date);
+        cPurchase.put("itemid", itemid);
+        cPurchase.put("totalNumber", totalNumber);
+        cPurchase.put("totalPrice", totalPrice);
+        return cPurchase;
     }
 }
 
