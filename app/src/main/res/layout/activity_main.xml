@@ -10,84 +10,94 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     android:weightSum="1"
-
     tools:context="ajou.walteg.MainActivity">
 
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.33"
         android:weightSum="1">
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:text="Inventory"
+            android:layout_height="match_parent"
+            android:text="Item Purchase"
             android:id="@+id/button"
-
             android:layout_weight="0.5"
-            android:background="#2ecc71" />
+            android:background="#2ecc71"
+            android:layout_margin="8dp"
+            android:onClick="purchase"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:text="Purchase"
+            android:layout_height="match_parent"
+            android:text="Your Inventory"
             android:id="@+id/button2"
 
             android:layout_weight="0.5"
-            android:background="#3498db" />
+            android:background="#3498db"
+            android:layout_margin="8dp"
+            android:onClick="inventory"/>
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.33"
         android:weightSum="1">
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:text="SHOP"
+            android:layout_height="match_parent"
+            android:text="Food Menu"
             android:id="@+id/button4"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.5"
-            android:background="#f1c40f" />
+            android:background="#f1c40f"
+            android:layout_margin="8dp"
+            android:onClick="menu"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:text="COOK"
+            android:layout_height="match_parent"
+            android:text="Inventory Usage"
             android:id="@+id/button3"
             android:layout_weight="0.5"
-            android:background="#e74c3c" />
+            android:background="#e74c3c"
+            android:layout_margin="8dp"
+            android:onClick="cook"/>
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.33"
         android:weightSum="1">
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:text="Menu"
+            android:layout_height="match_parent"
+            android:text="Food Sales"
             android:id="@+id/button7"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.5"
-            android:background="#9b59b6" />
+            android:background="#9b59b6"
+            android:layout_margin="8dp"
+            android:onClick="sell"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:text="Review"
+            android:layout_height="match_parent"
+            android:text="Review and History"
             android:id="@+id/button8"
             android:layout_weight="0.5"
-            android:background="#16a085" />
+            android:background="#16a085"
+            android:layout_margin="8dp"
+            android:onClick="review"/>
     </LinearLayout>
 </LinearLayout>
 
