@@ -19,11 +19,11 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE inventory (idpurchase INTEGER PRIMARY KEY AUTO INCREMENT, datepurchase TEXT, nameinventory TEXT, dateexpire TEXT, totalnumber INTEGER, totalprice INTEGER);");
-        db.execSQL("CREATE TABLE menu (idmenu INTEGER PRIMARY KEY AUTO INCREMENT,namemenu TEXT , price INTEGER);");
-        db.execSQL("CREATE TABLE cooking (idcooking INTEGER PRIMARY KEY AUTO INCREMENT,date TEXT);");
-        db.execSQL("CREATE TABLE usage (idusage INTEGER PRIMARY KEY AUTO INCREMENT, idcooking INTEGER,idinventory INTEGER,totalusage INTEGER);");
-        db.execSQL("CREATE TABLE sold (idsold INTEGER PRIMARY KEY AUTO INCREMENT, idcooking INTEGER,idmenu INTEGER,totalsell INTEGER, excessmenu INTEGER);");
+        db.execSQL("CREATE TABLE inventory (idpurchase INTEGER PRIMARY KEY AUTOINCREMENT, datepurchase TEXT, nameinventory TEXT, dateexpire TEXT, totalnumber INTEGER, totalprice INTEGER);");
+        db.execSQL("CREATE TABLE menu (idmenu INTEGER PRIMARY KEY AUTOINCREMENT,namemenu TEXT , price INTEGER);");
+        db.execSQL("CREATE TABLE cooking (idcooking INTEGER PRIMARY KEY AUTOINCREMENT,date TEXT);");
+        db.execSQL("CREATE TABLE usage (idusage INTEGER PRIMARY KEY AUTOINCREMENT, idcooking INTEGER,idinventory INTEGER,totalusage INTEGER);");
+        db.execSQL("CREATE TABLE sold (idsold INTEGER PRIMARY KEY AUTOINCREMENT, idcooking INTEGER,idmenu INTEGER,totalsell INTEGER, excessmenu INTEGER);");
 
     }
 

@@ -19,6 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".PurchaseActivity" android:screenOrientation="portrait"></activity>
-     </application>
+        <activity android:name=".AddPurchaseActivity" android:screenOrientation="portrait"></activity>
+
+    </application>
 
 </manifest>

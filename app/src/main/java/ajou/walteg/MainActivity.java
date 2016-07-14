@@ -23,11 +23,12 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+
     }
 
     public void purchase(View v)
     {
-        Toast.makeText(getApplicationContext(),"Item Purchase is not yet implemented",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),"Item Purchase is not yet implemented",Toast.LENGTH_SHORT).show();
         Intent p = new Intent(this, PurchaseActivity.class);
         startActivity(p);
     }

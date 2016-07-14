@@ -1,67 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    tools:context=".AddPurchaseActivity">
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Date:"
-        android:id="@+id/textView" />
+        android:text="Date Purchased:"
+        android:id="@+id/dateText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Inventory Name:"/>
 
     <EditText
-        android:id="@+id/dateText"
+        android:id="@+id/nameET"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter text here.."
+        android:hint="Enter text here..."
+        android:padding="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Expired Date:"/>
+
+    <EditText
+        android:id="@+id/dateExpiredET"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:hint="dd/mm/yyy"
         android:padding="10dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Date:"
-        android:id="@+id/textView" />
+        android:text="Total of Item:"/>
 
     <EditText
-        android:id="@+id/dateText"
+        android:id="@+id/totalNumber"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter text here.."
+        android:inputType="number"
+        android:hint="enter total number"
         android:padding="10dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Date:"
-        android:id="@+id/textView" />
+        android:text="Total Price:"/>
 
     <EditText
-        android:id="@+id/dateText"
+        android:id="@+id/totalPrice"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter text here.."
-        android:padding="10dp" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Date:"
-        android:id="@+id/textView" />
-
-    <EditText
-        android:id="@+id/dateText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter text here.."
+        android:inputType="number"
+        android:hint="enter total price"
         android:padding="10dp" />
 
+    <Button android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:onClick="submit"/>
 
-    String date;
-    int itemid;
-    int totalNumber;
-    int totalPrice;
 </LinearLayout>

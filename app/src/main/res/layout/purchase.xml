@@ -46,11 +46,9 @@
             android:onClick="chooseDate"/>
     </LinearLayout>
     <ListView
-        android:id="@+id/listview"
+        android:id="@+id/listViewPurchase"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:drawSelectorOnTop="false"
-        android:headerDividersEnabled="false" />
+        android:layout_height="match_parent" />
 </LinearLayout>
 
 
