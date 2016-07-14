@@ -9,9 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:background="#ffffff"
     android:weightSum="1"
-
+    android:background="#fff"
     tools:context="ajou.walteg.MainActivity">
 
 

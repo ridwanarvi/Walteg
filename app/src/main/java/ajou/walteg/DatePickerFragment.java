@@ -33,5 +33,9 @@ public class DatePickerFragment extends DialogFragment
             PurchaseActivity pa = (PurchaseActivity) a;
             pa.setDate( year,  month,  day);
         }
+        if(a instanceof AddPurchaseActivity){
+            AddPurchaseActivity apa = (AddPurchaseActivity) a;
+            apa.setDate(day+"/"+month+"/"+year);
+        }
     }
 }

@@ -65,16 +65,23 @@ public class PurchaseActivity extends AppCompatActivity {
         SQLiteDatabase db = wdh.getReadableDatabase();
 
         ArrayList<String> arr= new ArrayList<String>();
+        int totalPrice = 0;
         Cursor c = db.rawQuery("SELECT * FROM inventory where datepurchase ='"+dateTV.getText()+"'", null);
         if(c.moveToFirst()){
             do{
                 //assing values
                 c.getColumnCount();
                 StringBuilder sb =  new StringBuilder();
-                for(int i =0; i<c.getColumnCount();i++){
+                /*for(int i =0; i<c.getColumnCount();i++){
                     sb.append(c.getColumnName(i)+":"+c.getString(i)+",");
-                }
-                //Do something Here with values
+                }*/
+
+                sb.append("Name: "+c.getString(2)+"\n");
+                sb.append("Date Expire: "+c.getString(3)+"\n");
+                sb.append("Total Item: "+ c.getString(4)+"\n");
+                sb.append("Total Price: "+c.getString(5)+"\n");
+                totalPrice += Integer.parseInt(c.getString(5));
+
                 arr.add(sb.toString());
                 Log.d("TEST", sb.toString());
 
@@ -82,22 +89,9 @@ public class PurchaseActivity extends AppCompatActivity {
         }
         c.close();
         db.close();
+        
+        arr.add("Total Purchase: "+ totalPrice);
         listView.setAdapter(new ArrayAdapter(this,android.R.layout.simple_list_item_1,arr));
-    }
-
-
-    private void showEvents(Cursor cursor) {
-        StringBuilder builder = new StringBuilder("Saved events:\n");
-        while (cursor.moveToNext()) {
-            long id = cursor.getLong(0);
-            long time = cursor.getLong(1);
-            String title = cursor.getString(2);
-            builder.append(id).append(": ");
-            builder.append(time).append(": ");
-            builder.append(title).append("\n");
-        }
-        TextView text = (TextView) findViewById(R.id.text);
-        text.setText(builder);
     }
 
 
