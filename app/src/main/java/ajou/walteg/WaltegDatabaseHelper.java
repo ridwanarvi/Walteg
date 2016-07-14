@@ -1,7 +1,5 @@
 package ajou.walteg;
 
-import static android.provider.BaseColumns._ID;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,7 +17,7 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE inventory (idpurchase INTEGER PRIMARY KEY AUTOINCREMENT, datepurchase TEXT, nameinventory TEXT, dateexpire TEXT, totalnumber INTEGER, totalprice INTEGER);");
+        db.execSQL("CREATE TABLE inventory (idinventory INTEGER PRIMARY KEY AUTOINCREMENT, datepurchase TEXT, nameinventory TEXT, dateexpire TEXT, totalnumber INTEGER, totalprice INTEGER);");
         db.execSQL("CREATE TABLE menu (idmenu INTEGER PRIMARY KEY AUTOINCREMENT,namemenu TEXT , price INTEGER);");
         db.execSQL("CREATE TABLE cooking (idcooking INTEGER PRIMARY KEY AUTOINCREMENT,date TEXT);");
         db.execSQL("CREATE TABLE usage (idusage INTEGER PRIMARY KEY AUTOINCREMENT, idcooking INTEGER,idinventory INTEGER,totalusage INTEGER);");
@@ -39,13 +37,13 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
 
     public void updateInventory(Inventory p){
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cPurchase = p.getContentValues();
-        db.update("purchase", cPurchase, "idpurchase="+p.idpurchase, null);
+        ContentValues cInventory = p.getContentValues();
+        db.update("inventory", cInventory, "idinventory="+p.idinventory, null);
     }
 
     public void deleteInventory(Inventory p) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete("purchase", "idpurchase = "+p.idpurchase , null);
+        db.delete("inventory", "idinventory = "+p.idinventory, null);
     }
 
     public void addInventory(Inventory i) {
@@ -80,14 +78,14 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
 }
 
 class Inventory {
-    int idpurchase;
+    int idinventory;
     String datepurchase;
     String nameinventory;
     String dateExpire;
     int totalNumber;
     int totalPrice;
-    public Inventory(int idpurchase, String datepurchase, String nameinventory,String dateExpire, int totalNumber, int totalPrice){
-        this.idpurchase=idpurchase;
+    public Inventory(int idinventory, String datepurchase, String nameinventory,String dateExpire, int totalNumber, int totalPrice){
+        this.idinventory =idinventory;
         this.datepurchase=datepurchase;
         this.nameinventory=nameinventory;
         this.totalNumber=totalNumber;
@@ -95,14 +93,14 @@ class Inventory {
         this.totalPrice=totalPrice;
     }
     public ContentValues getContentValues(){
-        ContentValues cPurchase = new ContentValues();
-        cPurchase.put("datepurchase", datepurchase);
-        cPurchase.put("nameinventory", nameinventory);
-        cPurchase.put("nameinventory", nameinventory);
-        cPurchase.put("dateExpire", dateExpire);
-        cPurchase.put("totalNumber", totalNumber);
-        cPurchase.put("totalPrice", totalPrice);
-        return cPurchase;
+        ContentValues cInventory = new ContentValues();
+        cInventory.put("datepurchase", datepurchase);
+        cInventory.put("nameinventory", nameinventory);
+        cInventory.put("nameinventory", nameinventory);
+        cInventory.put("dateExpire", dateExpire);
+        cInventory.put("totalNumber", totalNumber);
+        cInventory.put("totalPrice", totalPrice);
+        return cInventory;
     }
 }
 
