@@ -21,8 +21,11 @@
         android:layout_marginRight="16dp"
         android:onClick="add"
         android:src="@drawable/ic_add_black"
+        app:borderWidth="0dp"
+        app:elevation="4dp"
+
         />
-<LinearLayout
+    <LinearLayout
     android:padding="8dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

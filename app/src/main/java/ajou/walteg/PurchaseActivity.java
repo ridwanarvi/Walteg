@@ -42,7 +42,7 @@ public class PurchaseActivity extends AppCompatActivity {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
-        setDate(year,month,day);
+        setDate(year, month, day);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -59,55 +59,54 @@ public class PurchaseActivity extends AppCompatActivity {
         refreshData();
     }
 
-    public void refreshData(){
+    public void refreshData() {
         SQLiteDatabase db = wdh.getReadableDatabase();
 
-        ArrayList<String> arr= new ArrayList<String>();
+        ArrayList<String> arr = new ArrayList<String>();
         int totalPrice = 0;
-        Cursor c = db.rawQuery("SELECT * FROM inventory where datepurchase ='"+dateTV.getText()+"'", null);
-        if(c.moveToFirst()){
-            do{
+        Cursor c = db.rawQuery("SELECT * FROM inventory where datepurchase ='" + dateTV.getText() + "'", null);
+        if (c.moveToFirst()) {
+            do {
                 //assing values
                 c.getColumnCount();
-                StringBuilder sb =  new StringBuilder();
+                StringBuilder sb = new StringBuilder();
                 /*for(int i =0; i<c.getColumnCount();i++){
                     sb.append(c.getColumnName(i)+":"+c.getString(i)+",");
                 }*/
 
-                sb.append("Name: "+c.getString(2)+"\n");
-                sb.append("Date Expire: "+c.getString(3)+"\n");
-                sb.append("Total Item: "+ c.getString(4)+"\n");
-                sb.append("Total Price: "+c.getString(5)+"\n");
+                sb.append("Name: " + c.getString(2) + "\n");
+                sb.append("Date Expire: " + c.getString(3) + "\n");
+                sb.append("Total Item: " + c.getString(4) + "\n");
+                sb.append("Total Price: " + c.getString(5) + "\n");
                 totalPrice += Integer.parseInt(c.getString(5));
 
                 arr.add(sb.toString());
                 Log.d("TEST", sb.toString());
 
-            }while(c.moveToNext());
+            } while (c.moveToNext());
         }
         c.close();
         db.close();
-        
-        arr.add("Total Purchase: "+ totalPrice);
-        listView.setAdapter(new ArrayAdapter(this,android.R.layout.simple_list_item_1,arr));
+
+        arr.add("Total Purchase: " + totalPrice);
+        listView.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, arr));
     }
 
 
-    public void chooseDate(View v){
+    public void chooseDate(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
-    public void setDate(int year, int month, int day)
-    {
-        dateTV.setText(day+"/"+(month+1)+"/"+year);
+    public void setDate(int year, int month, int day) {
+        dateTV.setText(day + "/" + (month + 1) + "/" + year);
         refreshData();
 
     }
 
-    public void add(View v){
+    public void add(View v) {
         Intent p = new Intent(this, AddPurchaseActivity.class);
-        p.putExtra("date",dateTV.getText().toString());
+        p.putExtra("date", dateTV.getText().toString());
         startActivity(p);
 
     }

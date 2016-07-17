@@ -29,13 +29,13 @@ public class DatePickerFragment extends DialogFragment
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
         Activity a = getActivity();
-        if(a instanceof PurchaseActivity){
+        if (a instanceof PurchaseActivity) {
             PurchaseActivity pa = (PurchaseActivity) a;
-            pa.setDate( year,  month,  day);
+            pa.setDate(year, month, day);
         }
-        if(a instanceof AddPurchaseActivity){
+        if (a instanceof AddPurchaseActivity) {
             AddPurchaseActivity apa = (AddPurchaseActivity) a;
-            apa.setDate(day+"/"+month+"/"+year);
+            apa.setDate(day + "/" + month + "/" + year);
         }
     }
 }
