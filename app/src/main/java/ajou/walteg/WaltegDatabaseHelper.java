@@ -2,8 +2,13 @@ package ajou.walteg;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+
+import java.util.ArrayList;
 
 public class WaltegDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "walteg.db";
@@ -17,6 +22,7 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL("CREATE TABLE inventory (idinventory INTEGER PRIMARY KEY AUTOINCREMENT, datepurchase TEXT, nameinventory TEXT, dateexpire TEXT, totalnumber INTEGER, totalprice INTEGER);");
         db.execSQL("CREATE TABLE menu (idmenu INTEGER PRIMARY KEY AUTOINCREMENT,namemenu TEXT , price INTEGER);");
         db.execSQL("CREATE TABLE cooking (idcooking INTEGER PRIMARY KEY AUTOINCREMENT,date TEXT);");
@@ -27,6 +33,7 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
+
         db.execSQL("DROP TABLE IF EXISTS inventory");
         db.execSQL("DROP TABLE IF EXISTS menu");
         db.execSQL("DROP TABLE IF EXISTS cooking");
@@ -74,6 +81,35 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cSold = s.getContentValues();
         db.insert("sold", null, cSold);
+    }
+
+    public ArrayList<Inventory> getInventory(String date){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        ArrayList<Inventory> arr = new ArrayList<Inventory>();
+        int totalPrice = 0;
+        Cursor c = db.rawQuery("SELECT * FROM inventory where datepurchase ='"+ date+"'", null);
+        if(c.moveToFirst()){
+            do{
+                //assing values
+                c.getColumnCount();
+                StringBuilder sb =  new StringBuilder();
+            /*for(int i =0; i<c.getColumnCount();i++){
+                sb.append(c.getColumnName(i)+":"+c.getString(i)+",");
+            }*/
+
+                sb.append("Name: "+c.getString(2)+"\n");
+                sb.append("Date Expire: "+c.getString(3)+"\n");
+                sb.append("Total Item: "+ c.getString(4)+"\n");
+                sb.append("Total Price: "+c.getString(5)+"\n");
+                totalPrice += Integer.parseInt(c.getString(5));
+
+                arr.add(new Inventory(c.getInt(0),c.getString(1),c.getString(2),c.getString(3),c.getInt(4),c.getInt(5)));
+
+                }while(c.moveToNext());
+        }
+        c.close();
+        return arr;
     }
 }
 

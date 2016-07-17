@@ -1,6 +1,7 @@
 package ajou.walteg;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
@@ -8,13 +9,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,7 +47,48 @@ public class PurchaseActivity extends AppCompatActivity {
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
         setDate(year,month,day);
+        onItemLongClick();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View
+                    view, int position, long id) {
+                Intent Move = new Intent(PurchaseActivity.this, AddPurchaseActivity.class);
+                startActivity(Move);
 
+            }
+        });
+
+
+
+    }
+
+    public void onItemLongClick() {
+        listView.setOnItemLongClickListener(
+                new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(PurchaseActivity.this);
+                        builder
+                                .setMessage("Do you want to delete this record?")
+
+                                .setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                        wdh.deleteInventory(arr.get(position));
+                                        refreshData();
+                                    }
+                                })
+                                .setNegativeButton(getString(R.string.no_button), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        refreshData();
+                                    }
+                                });
+                        builder.create().show();
+
+                        return true;
+                    }
+                });
 
     }
 
@@ -61,37 +106,24 @@ public class PurchaseActivity extends AppCompatActivity {
         refreshData();
     }
 
+    ArrayList<Inventory> arr = new ArrayList<Inventory>();
     public void refreshData(){
-        SQLiteDatabase db = wdh.getReadableDatabase();
 
-        ArrayList<String> arr= new ArrayList<String>();
-        int totalPrice = 0;
-        Cursor c = db.rawQuery("SELECT * FROM inventory where datepurchase ='"+dateTV.getText()+"'", null);
-        if(c.moveToFirst()){
-            do{
-                //assing values
-                c.getColumnCount();
-                StringBuilder sb =  new StringBuilder();
-                /*for(int i =0; i<c.getColumnCount();i++){
-                    sb.append(c.getColumnName(i)+":"+c.getString(i)+",");
-                }*/
+        arr = wdh.getInventory(dateTV.getText().toString());
+        ArrayList<String> arrString= new ArrayList<String>();
+        int totalPrice=0;
+        for(int i =0 ; i<arr.size();i++) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Name: " + arr.get(i).nameinventory + "\n");
+            sb.append("Date Expire: " + arr.get(i).dateExpire + "\n");
+            sb.append("Total Item: " + arr.get(i).totalNumber + "\n");
+            sb.append("Total Price: " + arr.get(i).totalPrice+ "\n");
+            totalPrice +=arr.get(i).totalPrice;
 
-                sb.append("Name: "+c.getString(2)+"\n");
-                sb.append("Date Expire: "+c.getString(3)+"\n");
-                sb.append("Total Item: "+ c.getString(4)+"\n");
-                sb.append("Total Price: "+c.getString(5)+"\n");
-                totalPrice += Integer.parseInt(c.getString(5));
-
-                arr.add(sb.toString());
-                Log.d("TEST", sb.toString());
-
-            }while(c.moveToNext());
+            arrString.add(sb.toString());
         }
-        c.close();
-        db.close();
-        
-        arr.add("Total Purchase: "+ totalPrice);
-        listView.setAdapter(new ArrayAdapter(this,android.R.layout.simple_list_item_1,arr));
+        arrString.add("Total Purchase: "+ totalPrice);
+        listView.setAdapter(new ArrayAdapter(this,android.R.layout.simple_list_item_1,arrString));
     }
 
 
@@ -108,10 +140,16 @@ public class PurchaseActivity extends AppCompatActivity {
     }
 
     public void add(View v){
+
         Intent p = new Intent(this, AddPurchaseActivity.class);
         p.putExtra("date",dateTV.getText().toString());
         startActivity(p);
 
+    }
+
+    public void goToAddPurchase(View v){
+        Intent go = new Intent(this, AddPurchaseActivity.class);
+        startActivity(go);
     }
 
 }
