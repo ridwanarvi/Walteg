@@ -47,13 +47,23 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteInventory(Inventory p) {
         SQLiteDatabase db = this.getWritableDatabase();
-       // db.delete("inventory", "idinventory = "+p.idinventory, null);
+        db.delete("inventory", "idinventory = "+p.idinventory, null);
     }
 
     public void addInventory(Inventory i) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cInventory = i.getContentValues();
         db.insert("inventory", null, cInventory);
+    }
+
+    public void updateMenu(Menu m){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE menu SET namemenu='"+m.namemenu+"',price="+m.price+" WHERE idmenu="+m.idmenu);
+    }
+
+    public void deleteMenu(Inventory p) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("inventory", "idinventory = "+p.idinventory, null);
     }
 
     public void addMenu(Menu m){

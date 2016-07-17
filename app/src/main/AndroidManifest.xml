@@ -23,6 +23,7 @@
         <activity android:name=".EditPurchaseActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".FoodMenuActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".AddFoodMenuActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".EditFoodMenuActivity" android:screenOrientation="portrait"></activity>
 
     </application>
 

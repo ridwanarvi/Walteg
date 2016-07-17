@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
 import java.util.ArrayList;
 
 /**
@@ -36,6 +37,25 @@ public class FoodMenuActivity extends AppCompatActivity {
         wdh = new WaltegDatabaseHelper(this);
         listViewFoodMenu = (ListView) findViewById(R.id.listViewFoodMenu);
         onItemLongClick();
+
+        listViewFoodMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View
+                    view, int position, long id) {
+                if (position == 0) return;
+
+                int idmenu = arr.get(position-1).idmenu;
+                String namemenu = arr.get(position-1).namemenu;
+                int price = arr.get(position-1).price;
+                Intent intent = new Intent(FoodMenuActivity.this, EditFoodMenuActivity.class);
+
+                intent.putExtra("idmenu", idmenu);
+                intent.putExtra("namemenu", namemenu);
+                intent.putExtra("price", price);
+
+                startActivity(intent);
+            }
+        });
     }
 
     public void onItemLongClick() {
@@ -50,7 +70,7 @@ public class FoodMenuActivity extends AppCompatActivity {
                                 .setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
 
-                                        wdh.deleteMenu(arr.get(position-1));
+                                        wdh.deleteMenu(arr.get(position - 1));
                                         refreshData();
                                     }
                                 })
@@ -82,25 +102,24 @@ public class FoodMenuActivity extends AppCompatActivity {
     }
 
 
-
     ArrayList<Menu> arr = new ArrayList<Menu>();
 
     public void refreshData() {
 
         arr = wdh.getMenu();
         ArrayList<String> arrString = new ArrayList<String>();
-        arrString.add("Total Menu: "+ arr.size());
+        arrString.add("Total Menu: " + arr.size());
         for (int i = 0; i < arr.size(); i++) {
             StringBuilder sb = new StringBuilder();
-            sb.append("Menu name: "+arr.get(i).namemenu+"\n");
-            sb.append("Price: "+arr.get(i).price);
+            sb.append("Menu name: " + arr.get(i).namemenu + "\n");
+            sb.append("Price: " + arr.get(i).price);
             arrString.add(sb.toString());
         }
 
         listViewFoodMenu.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrString));
     }
 
-    public void add(View v){
+    public void add(View v) {
         Intent m = new Intent(this, AddFoodMenuActivity.class);
         startActivity(m);
     }

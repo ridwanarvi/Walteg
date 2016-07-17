@@ -1,5 +1,6 @@
 package ajou.walteg;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,16 +13,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Created by ajou on 7/14/17.
+ * Created by ajou on 7/17/2016.
  */
-public class AddFoodMenuActivity extends AppCompatActivity {
+public class EditFoodMenuActivity extends AppCompatActivity {
     TextView nameMenuField;
     TextView priceField;
+
+    EditText nameMenuFieldEdit;
+    EditText priceFieldEdit;
 
     String namemenu;
     int price;
 
     WaltegDatabaseHelper wdh;
+
+    int idmenu;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,6 +40,20 @@ public class AddFoodMenuActivity extends AppCompatActivity {
         priceField = (TextView) findViewById(R.id.priceField);
         wdh = new WaltegDatabaseHelper(this);
 
+        nameMenuFieldEdit = (EditText)findViewById(R.id.nameMenuField);
+        priceFieldEdit = (EditText)findViewById(R.id.priceField);
+
+        Intent iin= getIntent();
+        Bundle b = iin.getExtras();
+        if(b!=null)
+        {
+            String nameFM =(String) b.get("namemenu");
+            String priceFM ="" + b.getInt("price");
+
+            nameMenuFieldEdit.setText(nameFM);
+            priceFieldEdit.setText(priceFM);
+            idmenu = b.getInt("idmenu");
+        }
 
     }
 
@@ -48,8 +68,8 @@ public class AddFoodMenuActivity extends AppCompatActivity {
     public void submit(View v) {
         namemenu = ((EditText) findViewById(R.id.nameMenuField)).getText().toString();
         price = Integer.parseInt(((TextView) findViewById(R.id.priceField)).getText().toString());
-        Menu m = new Menu(0, namemenu, price);
-        wdh.addMenu(m);
+        Menu m = new Menu(idmenu, namemenu, price);
+        wdh.updateMenu(m);
         Toast.makeText(getApplicationContext(), "The item was added", Toast.LENGTH_SHORT).show();
         ;
         finish();
