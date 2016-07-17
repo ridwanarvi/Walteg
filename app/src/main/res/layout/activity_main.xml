@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.33"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_gravity="center">
 
         <Button
             android:layout_width="0dp"
@@ -31,7 +32,9 @@
             android:layout_margin="8dp"
             android:onClick="purchase"
             android:textColor="#ffffff"
-            android:drawableTop="@drawable/cart"/>
+            android:drawableTop="@drawable/cart"
+            android:layout_gravity="center"
+            android:padding="8dp" />
 
         <Button
             android:layout_width="0dp"
@@ -44,7 +47,9 @@
             android:layout_weight="0.5"
             android:background="#FD3E07"
             android:layout_margin="8dp"
-            android:onClick="inventory"/>
+            android:onClick="inventory"
+            android:textColor="#ffffff"
+            android:padding="8dp" />
 
     </LinearLayout>
 
@@ -54,6 +59,19 @@
         android:layout_height="0dp"
         android:layout_weight="0.33"
         android:weightSum="1">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Inventory Usage"
+            android:drawableTop="@drawable/inventory_usage"
+            android:id="@+id/button3"
+            android:layout_weight="0.5"
+            android:background="#EC1165"
+            android:layout_margin="8dp"
+            android:onClick="cook"
+            android:textColor="#ffffff"
+            android:padding="8dp" />
 
         <Button
             android:layout_width="0dp"
@@ -67,18 +85,9 @@
             android:layout_margin="8dp"
             android:onClick="menu"
             android:drawableTop="@drawable/menu"
-            />
+            android:textColor="#ffffff"
+            android:padding="8dp" />
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="Inventory Usage"
-            android:drawableTop="@drawable/inventory_usage"
-            android:id="@+id/button3"
-            android:layout_weight="0.5"
-            android:background="#EC1165"
-            android:layout_margin="8dp"
-            android:onClick="cook"/>
     </LinearLayout>
 
     <LinearLayout
@@ -91,17 +100,6 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="Review and History"
-            android:id="@+id/button8"
-            android:layout_weight="0.5"
-            android:background="#CF000F"
-            android:layout_margin="8dp"
-            android:drawableTop="@drawable/receipt"
-            android:onClick="review"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
             android:text="Food Sales"
             android:id="@+id/button7"
             android:layout_gravity="center_vertical"
@@ -109,7 +107,22 @@
             android:background="#7f8c8d"
             android:layout_margin="8dp"
             android:drawableTop="@drawable/purchase"
-            android:onClick="sell"/>
+            android:onClick="sell"
+            android:textColor="#ffffff"
+            android:padding="8dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Review and History"
+            android:id="@+id/button8"
+            android:layout_weight="0.5"
+            android:background="#CF000F"
+            android:layout_margin="8dp"
+            android:drawableTop="@drawable/receipt"
+            android:onClick="review"
+            android:textColor="#ffffff"
+            android:padding="8dp" />
 
     </LinearLayout>
 </LinearLayout>

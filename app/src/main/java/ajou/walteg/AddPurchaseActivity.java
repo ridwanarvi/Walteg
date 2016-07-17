@@ -25,6 +25,7 @@ public class AddPurchaseActivity extends AppCompatActivity {
     String dateExpired;
 
     WaltegDatabaseHelper wdh;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +36,8 @@ public class AddPurchaseActivity extends AppCompatActivity {
         dateTV = (TextView) findViewById(R.id.dateText);
         dateExpiredET = (TextView) findViewById(R.id.dateExpiredET);
         datePurchased = getIntent().getStringExtra("date");
-        dateTV.setText("Date Purchased: "+ datePurchased);
-         wdh = new WaltegDatabaseHelper(this);
+        dateTV.setText("Date Purchased: " + datePurchased);
+        wdh = new WaltegDatabaseHelper(this);
 
 
     }
@@ -49,36 +50,36 @@ public class AddPurchaseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void changeDate(View v){
+    public void changeDate(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
-    public void setDate(String date)
-    {
+    public void setDate(String date) {
         dateExpiredET.setText(date);
-        dateExpired=date;
+        dateExpired = date;
 
 
     }
 
-    public void submit(View v){
-        int totalNumber= 0;
+    public void submit(View v) {
+        int totalNumber = 0;
         int totalPrice = 0;
         try {
             totalNumber = Integer.parseInt(((EditText) findViewById(R.id.totalNumber)).getText().toString());
             totalPrice = Integer.parseInt(((EditText) findViewById(R.id.totalPrice)).getText().toString());
 
-        }catch (Exception e)
-        {
-            Toast.makeText(getApplicationContext(),"Please put number on Total Number and Total Price",Toast.LENGTH_SHORT).show();;
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Please put number on Total Number and Total Price", Toast.LENGTH_SHORT).show();
+            ;
             return;
         }
         String dateExpire = ((TextView) findViewById(R.id.dateExpiredET)).getText().toString();
         String nameinventory = ((EditText) findViewById(R.id.nameET)).getText().toString();
-        Inventory i = new  Inventory(0, datePurchased,  nameinventory, dateExpire,  totalNumber,  totalPrice);
+        Inventory i = new Inventory(0, datePurchased, nameinventory, dateExpire, totalNumber, totalPrice);
         wdh.addInventory(i);
-        Toast.makeText(getApplicationContext(),"The item was added",Toast.LENGTH_SHORT).show();;
+        Toast.makeText(getApplicationContext(), "The item was added", Toast.LENGTH_SHORT).show();
+        ;
         finish();
 
     }
