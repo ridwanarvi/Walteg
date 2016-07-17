@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -41,13 +42,12 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
 
     public void updateInventory(Inventory p){
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cInventory = p.getContentValues();
-        db.update("inventory", cInventory, "idinventory="+p.idinventory, null);
+        db.execSQL("UPDATE inventory SET nameinventory='"+p.nameinventory+"',dateexpire='"+p.dateExpire+"',totalnumber="+p.totalNumber+",totalprice="+p.totalPrice+" WHERE idinventory="+p.idinventory);
     }
 
     public void deleteInventory(Inventory p) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete("inventory", "idinventory = "+p.idinventory, null);
+       // db.delete("inventory", "idinventory = "+p.idinventory, null);
     }
 
     public void addInventory(Inventory i) {
