@@ -5,8 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
@@ -28,7 +26,6 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE cooking (idcooking INTEGER PRIMARY KEY AUTOINCREMENT,date TEXT);");
         db.execSQL("CREATE TABLE usage (idusage INTEGER PRIMARY KEY AUTOINCREMENT, idcooking INTEGER,idinventory INTEGER,totalusage INTEGER);");
         db.execSQL("CREATE TABLE sold (idsold INTEGER PRIMARY KEY AUTOINCREMENT, idcooking INTEGER,idmenu INTEGER,totalsell INTEGER, excessmenu INTEGER);");
-
     }
 
     @Override
@@ -85,31 +82,33 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<Inventory> getInventory(String date){
         SQLiteDatabase db = this.getReadableDatabase();
-
         ArrayList<Inventory> arr = new ArrayList<Inventory>();
-        int totalPrice = 0;
         Cursor c = db.rawQuery("SELECT * FROM inventory where datepurchase ='"+ date+"'", null);
         if(c.moveToFirst()){
             do{
-                //assing values
-                c.getColumnCount();
-                StringBuilder sb =  new StringBuilder();
-            /*for(int i =0; i<c.getColumnCount();i++){
-                sb.append(c.getColumnName(i)+":"+c.getString(i)+",");
-            }*/
-
-                sb.append("Name: "+c.getString(2)+"\n");
-                sb.append("Date Expire: "+c.getString(3)+"\n");
-                sb.append("Total Item: "+ c.getString(4)+"\n");
-                sb.append("Total Price: "+c.getString(5)+"\n");
-                totalPrice += Integer.parseInt(c.getString(5));
-
                 arr.add(new Inventory(c.getInt(0),c.getString(1),c.getString(2),c.getString(3),c.getInt(4),c.getInt(5)));
-
                 }while(c.moveToNext());
         }
         c.close();
         return arr;
+    }
+
+    public ArrayList<Menu> getMenu(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Menu> arr = new ArrayList<>();
+        Cursor c = db.rawQuery("SELECT * FROM menu", null);
+        if(c.moveToFirst()){
+            do{
+                arr.add(new Menu(c.getInt(0),c.getString(1),c.getInt(2)));
+            }while(c.moveToNext());
+        }
+        c.close();
+        return arr;
+    }
+
+    public void deleteMenu(Menu m) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("menu", "idmenu = "+m.idmenu, null);
     }
 }
 

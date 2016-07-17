@@ -1,6 +1,5 @@
 package ajou.walteg;
 
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -17,63 +16,41 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 
 /**
- * Created by Ridwan on 7/14/16.
+ * Created by ajou on 7/15/16.
  */
-public class PurchaseActivity extends AppCompatActivity {
+public class FoodMenuActivity extends AppCompatActivity {
 
-    TextView dateTV;
     WaltegDatabaseHelper wdh;
-    ListView listView;
+    ListView listViewFoodMenu;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.purchase);
+        setContentView(R.layout.food_menu);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         wdh = new WaltegDatabaseHelper(this);
-        listView = (ListView) findViewById(R.id.listViewPurchase);
-        dateTV = (TextView) findViewById(R.id.dateTV);
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        setDate(year, month, day);
+        listViewFoodMenu = (ListView) findViewById(R.id.listViewFoodMenu);
         onItemLongClick();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View
-                    view, int position, long id) {
-                Intent Move = new Intent(PurchaseActivity.this, AddPurchaseActivity.class);
-                startActivity(Move);
-
-            }
-        });
-
-
     }
 
     public void onItemLongClick() {
-        listView.setOnItemLongClickListener(
+        listViewFoodMenu.setOnItemLongClickListener(
                 new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(PurchaseActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(FoodMenuActivity.this);
                         builder
                                 .setMessage("Do you want to delete this record?")
 
                                 .setPositiveButton(getString(R.string.yes_button), new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
 
-                                        wdh.deleteInventory(arr.get(position));
+                                        wdh.deleteMenu(arr.get(position-1));
                                         refreshData();
                                     }
                                 })
@@ -104,43 +81,28 @@ public class PurchaseActivity extends AppCompatActivity {
         refreshData();
     }
 
-    ArrayList<Inventory> arr = new ArrayList<Inventory>();
+
+
+    ArrayList<Menu> arr = new ArrayList<Menu>();
 
     public void refreshData() {
 
-        arr = wdh.getInventory(dateTV.getText().toString());
+        arr = wdh.getMenu();
         ArrayList<String> arrString = new ArrayList<String>();
-        int totalPrice = 0;
+        arrString.add("Total Menu: "+ arr.size());
         for (int i = 0; i < arr.size(); i++) {
             StringBuilder sb = new StringBuilder();
-            sb.append("Name: " + arr.get(i).nameinventory + "\n");
-            sb.append("Date Expire: " + arr.get(i).dateExpire + "\n");
-            sb.append("Total Item: " + arr.get(i).totalNumber + "\n");
-            sb.append("Total Price: " + arr.get(i).totalPrice + "\n");
-            totalPrice += arr.get(i).totalPrice;
-
+            sb.append("Menu name: "+arr.get(i).namemenu+"\n");
+            sb.append("Price: "+arr.get(i).price);
             arrString.add(sb.toString());
         }
-        arrString.add("Total Purchase: " + totalPrice);
-        listView.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrString));
+
+        listViewFoodMenu.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrString));
     }
 
-
-    public void chooseDate(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
-
-    public void setDate(int year, int month, int day) {
-        dateTV.setText(day + "/" + (month + 1) + "/" + year);
-        refreshData();
-    }
-
-    public void add(View v) {
-        Intent p = new Intent(this, AddPurchaseActivity.class);
-        p.putExtra("date", dateTV.getText().toString());
-        startActivity(p);
-
+    public void add(View v){
+        Intent m = new Intent(this, AddFoodMenuActivity.class);
+        startActivity(m);
     }
 
 }
