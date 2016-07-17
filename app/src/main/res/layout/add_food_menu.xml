@@ -11,8 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Total Menu: "
-        android:id="@+id/totalMenu"/>
+        android:text="Add New Menu"
+        android:textSize="12pt"
+        android:id="@+id/totalMenu"
+        android:paddingTop="8dp"
+        android:paddingBottom="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
