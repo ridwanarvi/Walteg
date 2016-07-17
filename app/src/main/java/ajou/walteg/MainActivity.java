@@ -27,13 +27,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void purchase(View v) {
-        //Toast.makeText(getApplicationContext(),"Item Purchase is not yet implemented",Toast.LENGTH_SHORT).show();
         Intent p = new Intent(this, PurchaseActivity.class);
         startActivity(p);
     }
 
     public void inventory(View v) {
-        Toast.makeText(getApplicationContext(), "Your Inventory is not yet implemented", Toast.LENGTH_SHORT).show();
+        Intent p = new Intent(this, InventoryActivity.class);
+        startActivity(p);
     }
 
     public void menu(View v) {

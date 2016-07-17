@@ -93,6 +93,22 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
         return arr;
     }
 
+
+    public ArrayList<String> getInventory(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<String> arr = new ArrayList<String>();
+        Cursor c = db.rawQuery("SELECT i.nameinventory, i.totalnumber-COALESCE(SUM(u.totalusage),0) " +
+                "FROM inventory i LEFT JOIN usage u ON i.idinventory=u.idinventory " +
+                "GROUP BY i.idinventory", null);
+        if(c.moveToFirst()){
+            do{
+                arr.add("Name : "+c.getString(0)+"\nTotal: "+c.getString(1));
+            }while(c.moveToNext());
+        }
+        c.close();
+        return arr;
+    }
+
     public ArrayList<Menu> getMenu(){
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Menu> arr = new ArrayList<>();

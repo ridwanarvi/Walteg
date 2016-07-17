@@ -43,6 +43,7 @@ public class FoodMenuActivity extends AppCompatActivity {
                 new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                        if(position==0) return false;
                         AlertDialog.Builder builder = new AlertDialog.Builder(FoodMenuActivity.this);
                         builder
                                 .setMessage("Do you want to delete this record?")
