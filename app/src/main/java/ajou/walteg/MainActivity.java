@@ -39,8 +39,9 @@ public class MainActivity extends AppCompatActivity{
     }
     public void menu(View v)
     {
-        Toast.makeText(getApplicationContext(),"Food Menu is not yet implemented",Toast.LENGTH_SHORT).show();;
-
+        //Toast.makeText(getApplicationContext(),"Food Menu is not yet implemented",Toast.LENGTH_SHORT).show();;
+        Intent m = new Intent(this, FoodMenuActivity.class);
+        startActivity(m);
     }
     public void cook(View v)
     {

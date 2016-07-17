@@ -1,6 +1,5 @@
 package ajou.walteg;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
@@ -14,35 +13,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 
 /**
- * Created by Ridwan on 7/14/16.
+ * Created by ajou on 7/15/16.
  */
-public class PurchaseActivity extends AppCompatActivity {
+public class FoodMenuActivity extends AppCompatActivity {
 
-    TextView dateTV;
     WaltegDatabaseHelper wdh;
-    ListView listView;
+    ListView listViewFoodMenu;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.purchase);
+        setContentView(R.layout.food_menu);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         wdh = new WaltegDatabaseHelper(this);
-        listView = (ListView) findViewById(R.id.listViewPurchase);
-        dateTV = (TextView) findViewById(R.id.dateTV);
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        setDate(year,month,day);
+        listViewFoodMenu = (ListView) findViewById(R.id.listViewFoodMenu);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -59,12 +48,14 @@ public class PurchaseActivity extends AppCompatActivity {
         refreshData();
     }
 
-    public void refreshData(){
+    public void refreshData() {
         SQLiteDatabase db = wdh.getReadableDatabase();
 
         ArrayList<String> arr= new ArrayList<String>();
-        int totalPrice = 0;
-        Cursor c = db.rawQuery("SELECT * FROM inventory where datepurchase ='"+dateTV.getText()+"'", null);
+        int totalMenu= 0;
+        Cursor c = db.rawQuery("SELECT * FROM menu", null);
+        totalMenu = c.getCount();
+        arr.add("Total Menu: "+ totalMenu);
         if(c.moveToFirst()){
             do{
                 //assing values
@@ -74,42 +65,23 @@ public class PurchaseActivity extends AppCompatActivity {
                     sb.append(c.getColumnName(i)+":"+c.getString(i)+",");
                 }*/
 
-                sb.append("Name: "+c.getString(2)+"\n");
-                sb.append("Date Expire: "+c.getString(3)+"\n");
-                sb.append("Total Item: "+ c.getString(4)+"\n");
-                sb.append("Total Price: "+c.getString(5)+"\n");
-                totalPrice += Integer.parseInt(c.getString(5));
+                sb.append("Menu name: "+c.getString(1)+"\n");
+                sb.append("Price: "+c.getString(2));
 
                 arr.add(sb.toString());
-                Log.d("TEST", sb.toString());
-
-            }while(c.moveToNext());
+            }
+            while(c.moveToNext());
         }
         c.close();
         db.close();
-        
-        arr.add("Total Purchase: "+ totalPrice);
-        listView.setAdapter(new ArrayAdapter(this,android.R.layout.simple_list_item_1,arr));
-    }
 
 
-    public void chooseDate(View v){
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
-
-    public void setDate(int year, int month, int day)
-    {
-        dateTV.setText(day+"/"+(month+1)+"/"+year);
-        refreshData();
-
+        listViewFoodMenu.setAdapter(new ArrayAdapter(this,android.R.layout.simple_list_item_1,arr));
     }
 
     public void add(View v){
-        Intent p = new Intent(this, AddPurchaseActivity.class);
-        p.putExtra("date",dateTV.getText().toString());
-        startActivity(p);
-
+        Intent m = new Intent(this, AddFoodMenuActivity.class);
+        startActivity(m);
     }
 
 }

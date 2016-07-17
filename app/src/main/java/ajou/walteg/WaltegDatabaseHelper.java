@@ -22,7 +22,6 @@ public class WaltegDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE cooking (idcooking INTEGER PRIMARY KEY AUTOINCREMENT,date TEXT);");
         db.execSQL("CREATE TABLE usage (idusage INTEGER PRIMARY KEY AUTOINCREMENT, idcooking INTEGER,idinventory INTEGER,totalusage INTEGER);");
         db.execSQL("CREATE TABLE sold (idsold INTEGER PRIMARY KEY AUTOINCREMENT, idcooking INTEGER,idmenu INTEGER,totalsell INTEGER, excessmenu INTEGER);");
-
     }
 
     @Override
